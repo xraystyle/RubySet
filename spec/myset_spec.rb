@@ -38,16 +38,17 @@ describe "MySet:" do
 
     end
 
+    
+             
+    shared_examples "iteration" do
 
-    describe "#new method with an array as a paramater" do
-
-        it "returns a set containing all elements of the array as members" do
+        it "iteration yields each member of the set to the block" do
             new_set.each do |i|
                 expect(array.include?(i)).to be true
             end
         end
 
-        it "should not contain any elements not in the array" do
+        it "does not yield anything not a member of the set" do
             new_set.each do |i|
                 expect(array_2.include?(i)).to be false
             end
@@ -55,13 +56,53 @@ describe "MySet:" do
 
     end
 
-    describe "#[] method" do
-        before { @set }
-      it "returns true if the set contains the given key" do
-          #
-      end
+    
+
+    describe "#new method with an array as a paramater" do
+        # tests that it contains the elements of the array it was initialized with,
+        # and none it wasn't.
+        it_behaves_like "iteration"
+
+        it "is the right length" do
+            expect(array.length).to eq(new_set.length)
+            expect(@set.length).to eq(0)
+        end
+
+        it "includes all members of it's array paramater" do
+            # tests the inverse of "iteration". All array members are
+            # in the set, instead of all members of the set are in the array.
+            array.each do |i|
+                expect(new_set.include?(i)).to be true
+            end
+        end
+
     end
 
+
+    describe "#[] method" do
+        before { @set.add(:foo) }
+        it "returns true if the set contains the given element" do
+            expect(@set[:foo]).to be true
+        end
+
+        it "returns false if the set does not contain the given element" do
+            expect(@set[:bar]).to be false            
+        end
+    end
+
+    describe "#each method" do
+        # it describes what it is.
+        it_behaves_like "iteration"  
+    end
+
+    describe "#add method" do
+        before { @set.add(:bar) }
+        
+        it "adds a new member to the set" do
+            expect(@set.include?(bar)).to be true
+        end
+      
+    end
 
 
 

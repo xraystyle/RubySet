@@ -20,7 +20,7 @@ class MySet
         @internal_hash[key] = true
     end
 
-    alias_method :<<, :[]=
+    alias_method :<<, :add
 
     def each
         @internal_hash.each { |k,_| yield k }
