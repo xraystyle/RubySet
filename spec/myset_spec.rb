@@ -7,6 +7,9 @@ describe "MySet:" do
 
     subject { @set }
     let(:new_set) { MySet.new([1,2,3,4,5]) }
+    let(:intersected_set) { MySet.new([4,2,1,7,8]) }
+    let(:proper_subset) { MySet.new([2,3,4]) }
+    let(:improper_subset) { MySet.new([1,2,3,4,5]) }
     let(:array) { [1,2,3,4,5] }
     let(:array_2) { [6,7,8] }
 
@@ -102,6 +105,14 @@ describe "MySet:" do
             expect(@set.include?(bar)).to be true
         end
       
+    end
+
+    describe "#intersection method" do
+        it "returns an array of items shared between both sets" do
+            expect do
+                new_set.intersection(proper_subset).sort
+            end.to eq([1,2,4])
+        end
     end
 
 
