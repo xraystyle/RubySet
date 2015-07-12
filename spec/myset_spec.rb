@@ -10,6 +10,7 @@ describe "MySet:" do
     let(:intersected_set) { MySet.new([4,2,1,7,8]) }
     let(:proper_subset) { MySet.new([2,3,4]) }
     let(:improper_subset) { MySet.new([1,2,3,4,5]) }
+    let(:not_a_subset) { MySet.new([10,11,12,13,14,15]) }
     let(:array) { [1,2,3,4,5] }
     let(:array_2) { [6,7,8] }
 
@@ -61,7 +62,7 @@ describe "MySet:" do
 
     
 
-    describe "#new method with an array as a paramater" do
+    describe "#new method with an array as a parameter" do
         # tests that it contains the elements of the array it was initialized with,
         # and none it wasn't.
         it_behaves_like "iteration"
@@ -71,7 +72,7 @@ describe "MySet:" do
             expect(@set.length).to eq(0)
         end
 
-        it "includes all members of it's array paramater" do
+        it "includes all members of it's array parameter" do
             # tests the inverse of "iteration". All array members are
             # in the set, instead of all members of the set are in the array.
             array.each do |i|
@@ -102,20 +103,37 @@ describe "MySet:" do
         before { @set.add(:bar) }
         
         it "adds a new member to the set" do
-            expect(@set.include?(bar)).to be true
+            expect(@set.include?(:bar)).to be true
         end
       
     end
 
     describe "#intersection method" do
         it "returns an array of items shared between both sets" do
-            expect do
-                new_set.intersection(proper_subset).sort
-            end.to eq([1,2,4])
+            expect(new_set.intersection(intersected_set).sort).to eq([1,2,4])
+            expect(new_set.intersection(proper_subset)).to eq([2,3,4])
+            expect(new_set.intersection(improper_subset)).to eq([1,2,3,4,5])
+            expect(new_set.intersection(not_a_subset)).to eq([])
         end
     end
 
+    describe "#intersect? method" do
+        it "returns true if the sets intersect" do
+            expect(new_set.intersect?(proper_subset)).to be true
+        end
+        it "returns false if the sets don't intersect" do
+            expect(new_set.intersect?(not_a_subset)).to be false
+        end
+    end
 
+    describe "#superset? method" do
+        it "returns true if the set is a superset of the passed set" do
+            expect(new_set.superset?(proper_subset)).to be true
+        end
+        it "returns false if the set is not a superset of passed set" do
+            expect(new_set.superset?(not_a_subset)).to be false
+        end
+    end
 
 # end of tests
 end
