@@ -6,6 +6,7 @@ describe "MySet:" do
     before { @set = MySet.new }
 
     subject { @set }
+
     let(:new_set) { MySet.new([1,2,3,4,5]) }
     let(:intersected_set) { MySet.new([4,2,1,7,8]) }
     let(:proper_subset) { MySet.new([2,3,4]) }
@@ -39,21 +40,21 @@ describe "MySet:" do
         it "returns an object of class MySet" do
             expect(@set.class).to eq(MySet)
         end
-
     end
 
-    
-             
+
     shared_examples "iteration" do
 
         it "iteration yields each member of the set to the block" do
             new_set.each do |i|
+                # all members of the set should also be in the array.
                 expect(array.include?(i)).to be true
             end
         end
 
         it "does not yield anything not a member of the set" do
             new_set.each do |i|
+                # no oddballs.
                 expect(array_2.include?(i)).to be false
             end
         end
@@ -67,12 +68,12 @@ describe "MySet:" do
         # and none it wasn't.
         it_behaves_like "iteration"
 
-        it "is the right length" do
+        it "returns a set of the correct length" do
             expect(array.length).to eq(new_set.length)
             expect(@set.length).to eq(0)
         end
 
-        it "includes all members of it's array parameter" do
+        it "returns a set that includes all members of the passed array" do
             # tests the inverse of "iteration". All array members are
             # in the set, instead of all members of the set are in the array.
             array.each do |i|
@@ -134,6 +135,8 @@ describe "MySet:" do
             expect(new_set.superset?(not_a_subset)).to be false
         end
     end
+
+
 
 # end of tests
 end
