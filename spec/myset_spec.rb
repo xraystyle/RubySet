@@ -33,6 +33,7 @@ describe "MySet:" do
         it { should respond_to(:superset?) }
         it { should respond_to(:to_a) }
         it { should respond_to(:merge) }
+        it { should respond_to(:members) }
 
     end
 
@@ -134,6 +135,14 @@ describe "MySet:" do
         it "returns false if the set is not a superset of passed set" do
             expect(new_set.superset?(not_a_subset)).to be false
         end
+    end
+
+    describe "#merge method" do
+        let(:merged) { MySet.new([1,2,3,4,5,10,11,12,13,14,15]) }
+        it "returns a correctly merged set" do
+            expect(new_set.merge(not_a_subset) == merged).to be true
+        end
+        
     end
 
 

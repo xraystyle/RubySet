@@ -26,6 +26,10 @@ class MySet
         @internal_hash.each { |k,_| yield k }
     end
 
+    def members
+        @internal_hash.keys
+    end
+
     def intersection(other_set)
         other_set.reduce([]) do |array, k|
             array << k if @internal_hash[k]
@@ -34,15 +38,17 @@ class MySet
     end
 
     def intersect?(other_set)
-        # Code Goes Here
+        self.intersection(other_set).any?
     end
 
     def superset?(other_set)
-        # Code Goes Here
+        other_set.subset?(self)
     end
 
     def merge(other_set)
-        # Code Goes Here
+        merged = MySet.new(self.members)
+        other_set.each { |k| merged.add(k) }
+        merged
     end
 
     def length
