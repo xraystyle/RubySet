@@ -43,7 +43,8 @@ describe "MySet:" do
         end
     end
 
-
+    # Test that iteration works. Also tests that a set initialized with an array
+    # contains the elements from that array.
     shared_examples "iteration" do
 
         it "iteration yields each member of the set to the block" do
@@ -62,7 +63,27 @@ describe "MySet:" do
 
     end
 
-    
+    # Many of the instance methods require a set as a parameter. 
+    # Check that they raise an error if not passed another set as a param.
+    shared_examples 'Requires Set For Parameter' do |method|
+        it "raises ArgumentError if the passed param is not also a set" do
+            expect { @set.send(method, "not a set") }.to raise_error(ArgumentError, "Method ##{method} requires a set as the parameter.")
+        end
+
+        it "doesn't raise an error if the passed param is a set" do
+            expect { @set.send(method, new_set) }.not_to raise_error
+        end
+    end
+
+
+
+    # Start testing methods.
+    describe "initializing with a bogus parameter" do
+        it "raises ArgumentError" do
+            expect { MySet.new("FooBar") }.to raise_error(ArgumentError, 'New set must be given an array')
+        end
+      
+    end
 
     describe "#new method with an array as a parameter" do
         # tests that it contains the elements of the array it was initialized with,
@@ -117,6 +138,7 @@ describe "MySet:" do
             expect(new_set.intersection(improper_subset)).to eq([1,2,3,4,5])
             expect(new_set.intersection(not_a_subset)).to eq([])
         end
+        it_behaves_like 'Requires Set For Parameter', :intersection
     end
 
     describe "#intersect? method" do
@@ -126,6 +148,7 @@ describe "MySet:" do
         it "returns false if the sets don't intersect" do
             expect(new_set.intersect?(not_a_subset)).to be false
         end
+        it_behaves_like 'Requires Set For Parameter', :intersect?
     end
 
     describe "#superset? method" do
@@ -135,6 +158,7 @@ describe "MySet:" do
         it "returns false if the set is not a superset of passed set" do
             expect(new_set.superset?(not_a_subset)).to be false
         end
+        it_behaves_like 'Requires Set For Parameter', :superset?
     end
 
     describe "#merge method" do
@@ -142,7 +166,7 @@ describe "MySet:" do
         it "returns a correctly merged set" do
             expect(new_set.merge(not_a_subset) == merged).to be true
         end
-        
+        it_behaves_like 'Requires Set For Parameter', :merge
     end
 
 
