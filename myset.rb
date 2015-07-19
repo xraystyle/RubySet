@@ -111,6 +111,8 @@ class MySet
 
     private
 
+    # Many of the set instance methods require a second set as a parameter for some type of comparison.
+    # This verifies that the param is a set, and raises ArgumentError if it isn't.
     def requires_set(param, method_name)
         raise ArgumentError, "Method ##{method_name} requires a set as the parameter." unless param.class == MySet
     end

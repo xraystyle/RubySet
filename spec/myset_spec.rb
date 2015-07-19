@@ -169,7 +169,17 @@ describe "MySet:" do
         it_behaves_like 'Requires Set For Parameter', :merge
     end
 
-
+    describe "#== method" do
+        let(:set_1) { MySet.new([1,2,3]) }
+        let(:set_2) { MySet.new([1,2,3]) }
+        it "returns true if the sets contain exactly the same members" do
+            expect(set_1 == set_2).to be true    
+        end
+        it "returns false if the sets don't contain exactly the same members" do
+            expect(@set == set_1).to be false
+        end
+        it_behaves_like 'Requires Set For Parameter', :==
+    end
 
 # end of tests
 end
