@@ -77,24 +77,6 @@ class MySet
         true
     end
 
-    # def map(&block)
-    #     array = []
-    #     @internal_hash.each do |k,_|
-    #        array << block.call(k)
-    #    end
-    #    Set.new(array)
-    # end
-
-
-    # def reduce(memo = 0, &block)
-    #     @internal_hash.each do |k,_|
-    #         memo = block.call(memo, k)
-    #     end
-    #     memo
-    # end  
-
-
-
 end
 
 @foo = MySet.new([:a, 12, "string", :baz, :foobar])
