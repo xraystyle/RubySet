@@ -65,7 +65,8 @@ describe "MySet:" do
 
     # Many of the instance methods require a set as a parameter. 
     # Check that they raise an error if not passed another set as a param.
-    shared_examples 'Requires Set For Parameter' do |method|
+    puts 
+    shared_examples 'Parameter Must Be A Set' do |method|
         it "raises ArgumentError if the passed param is not also a set" do
             expect { @set.send(method, "not a set") }.to raise_error(ArgumentError, "Method ##{method} requires a set as the parameter.")
         end
@@ -138,7 +139,7 @@ describe "MySet:" do
             expect(new_set.intersection(improper_subset)).to eq([1,2,3,4,5])
             expect(new_set.intersection(not_a_subset)).to eq([])
         end
-        it_behaves_like 'Requires Set For Parameter', :intersection
+        it_behaves_like 'Parameter Must Be A Set', :intersection
     end
 
     describe "#intersect? method" do
@@ -148,7 +149,7 @@ describe "MySet:" do
         it "returns false if the sets don't intersect" do
             expect(new_set.intersect?(not_a_subset)).to be false
         end
-        it_behaves_like 'Requires Set For Parameter', :intersect?
+        it_behaves_like 'Parameter Must Be A Set', :intersect?
     end
 
     describe "#superset? method" do
@@ -158,7 +159,7 @@ describe "MySet:" do
         it "returns false if the set is not a superset of passed set" do
             expect(new_set.superset?(not_a_subset)).to be false
         end
-        it_behaves_like 'Requires Set For Parameter', :superset?
+        it_behaves_like 'Parameter Must Be A Set', :superset?
     end
 
     describe "#merge method" do
@@ -166,7 +167,7 @@ describe "MySet:" do
         it "returns a correctly merged set" do
             expect(new_set.merge(not_a_subset) == merged).to be true
         end
-        it_behaves_like 'Requires Set For Parameter', :merge
+        it_behaves_like 'Parameter Must Be A Set', :merge
     end
 
     describe "#== method" do
@@ -178,7 +179,7 @@ describe "MySet:" do
         it "returns false if the sets don't contain exactly the same members" do
             expect(@set == set_1).to be false
         end
-        it_behaves_like 'Requires Set For Parameter', :==
+        it_behaves_like 'Parameter Must Be A Set', :==
     end
 
 # end of tests
