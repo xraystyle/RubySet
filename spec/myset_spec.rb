@@ -54,7 +54,7 @@ describe "MySet:" do
             end
         end
 
-        it "does not yield anything not a member of the set" do
+        it "iteration does not yield anything not a member of the set" do
             new_set.each do |i|
                 # no oddballs.
                 expect(array_2.include?(i)).to be false
@@ -89,7 +89,7 @@ describe "MySet:" do
     describe "#new method with an array as a parameter" do
         # tests that it contains the elements of the array it was initialized with,
         # and none it wasn't.
-        it_behaves_like "iteration"
+        include_examples "iteration"
 
         it "returns a set of the correct length" do
             expect(array.length).to eq(new_set.length)
@@ -120,7 +120,7 @@ describe "MySet:" do
 
     describe "#each method" do
         # it describes what it is.
-        it_behaves_like "iteration"  
+        include_examples "iteration"  
     end
 
     describe "#add method" do
@@ -139,7 +139,7 @@ describe "MySet:" do
             expect(new_set.intersection(improper_subset)).to eq([1,2,3,4,5])
             expect(new_set.intersection(not_a_subset)).to eq([])
         end
-        it_behaves_like 'Parameter Must Be A Set', :intersection
+        include_examples 'Parameter Must Be A Set', :intersection
     end
 
     describe "#intersect? method" do
@@ -149,7 +149,7 @@ describe "MySet:" do
         it "returns false if the sets don't intersect" do
             expect(new_set.intersect?(not_a_subset)).to be false
         end
-        it_behaves_like 'Parameter Must Be A Set', :intersect?
+        include_examples 'Parameter Must Be A Set', :intersect?
     end
 
     describe "#superset? method" do
@@ -159,7 +159,7 @@ describe "MySet:" do
         it "returns false if the set is not a superset of passed set" do
             expect(new_set.superset?(not_a_subset)).to be false
         end
-        it_behaves_like 'Parameter Must Be A Set', :superset?
+        include_examples 'Parameter Must Be A Set', :superset?
     end
 
     describe "#merge method" do
@@ -167,7 +167,7 @@ describe "MySet:" do
         it "returns a correctly merged set" do
             expect(new_set.merge(not_a_subset) == merged).to be true
         end
-        it_behaves_like 'Parameter Must Be A Set', :merge
+        include_examples 'Parameter Must Be A Set', :merge
     end
 
     describe "#== method" do
@@ -179,7 +179,7 @@ describe "MySet:" do
         it "returns false if the sets don't contain exactly the same members" do
             expect(@set == set_1).to be false
         end
-        it_behaves_like 'Parameter Must Be A Set', :==
+        include_examples 'Parameter Must Be A Set', :==
     end
 
 # end of tests
