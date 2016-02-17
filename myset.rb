@@ -83,12 +83,12 @@ class MySet
     # in each set.
     def ==(other_set)
         requires_set(other_set, __method__)
-        other_set.instance_eval { @internal_hash } == @internal_hash ? true : false
+        other_set.instance_eval { @internal_hash } == @internal_hash
     end
 
     # Remove a member from the set.
     def delete(key)
-        @internal_hash.delete(key) ? true : false
+        @internal_hash.delete(key)
     end
 
     alias_method :pop, :delete
