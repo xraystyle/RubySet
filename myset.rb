@@ -54,7 +54,7 @@ class MySet
     # members in common.
     def intersect?(other_set)
         requires_set(other_set, __method__)
-        self.intersection(other_set).any?
+        intersection(other_set).any?
     end
 
     # Is the set a superset of the second? Returns true if all 
@@ -68,9 +68,7 @@ class MySet
     # Does NOT mutate the current set.
     def merge(other_set)
         requires_set(other_set, __method__)
-        merged = MySet.new(self.members)
-        other_set.each { |k| merged.add(k) }
-        merged
+        MySet.new(members + other_set.members)
     end
 
     # Returns the total number of members in the set.
